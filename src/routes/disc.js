@@ -14,10 +14,10 @@ router.post("/", async (req, res) => {
       .map(([pergunta, resposta]) => `<p><b>${pergunta}:</b> ${resposta}</p>`)
       .join("");
 
-    const totalD = Object.entries(payload.respostas).filter((resposta) => resposta[1] === "D")
-    const totalI= Object.entries(payload.respostas).filter((resposta) => resposta[1] === "I")
-    const totalS = Object.entries(payload.respostas).filter((resposta) => resposta[1] === "S")
-    const totalC = Object.entries(payload.respostas).filter((resposta) => resposta[1] === "C")
+    const totalD = Object.entries(respostas).filter((resposta) => resposta[1] === "D")
+    const totalI= Object.entries(respostas).filter((resposta) => resposta[1] === "I")
+    const totalS = Object.entries(respostas).filter((resposta) => resposta[1] === "S")
+    const totalC = Object.entries(respostas).filter((resposta) => resposta[1] === "C")
 
     const maiorLetra = [totalD, totalI, totalS, totalC].reduce((prev, curr) => {
       if (curr.length > prev.length) prev = curr
