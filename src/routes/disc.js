@@ -14,15 +14,15 @@ router.post("/", async (req, res) => {
       .map(([pergunta, resposta]) => `<p><b>${pergunta}:</b> ${resposta}</p>`)
       .join("");
 
-    const totalD = Object.values(respostas).filter((value) => value === "D").length
-    const totalI= Object.values(respostas).filter((value) => value === "I").length
-    const totalS = Object.values(respostas).filter((value) => value === "S").length
-    const totalC = Object.values(respostas).filter((value) => value === "C").length
+    const totalD = Object.entries(payload.respostas).filter((resposta) => resposta[1] === "D")
+    const totalI= Object.entries(payload.respostas).filter((resposta) => resposta[1] === "I")
+    const totalS = Object.entries(payload.respostas).filter((resposta) => resposta[1] === "S")
+    const totalC = Object.entries(payload.respostas).filter((resposta) => resposta[1] === "C")
 
     const maiorLetra = [totalD, totalI, totalS, totalC].reduce((prev, curr) => {
-        if (curr > prev) prev = curr
-        return prev
-    })
+      if (curr.length > prev.length) prev = curr
+      return prev
+    })[0] || ""
 
     const messageHtml = `
       <h2>Resultado do Teste DISC</h2>
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
       <p><b>Total letra C:</b> ${totalC}</p>
       <hr>
       <br>
-      <p><b>Letra com mais respostas:</b> ${maiorLetra}</p>
+      <p><b>Letra com mais respostas:</b> ${maiorLetra[1]}</p>
       <br>
       <h3>Respostas:</h3>
       ${htmlRespostas}
